@@ -1,5 +1,11 @@
 # How to Use It
 
+## Install Dependecies
+
+```sh
+python install -r requirements.txt
+```
+
 ## Encrypt
 
 ```sh
