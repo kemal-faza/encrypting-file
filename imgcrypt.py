@@ -7,6 +7,8 @@ import math
 import numpy as np
 from PIL import Image
 
+Image.MAX_IMAGE_PIXELS = None
+
 
 def get_header(data_len):
     """Membuat header 4 byte untuk menyimpan ukuran file asli."""
@@ -92,9 +94,11 @@ def decode(input_image, output_file):
         compressed_data = flat_data[4 : 4 + file_size]
 
         # Dekompresi data
-        original_data = zlib.decompress(compressed_data)
+        try:
+            original_data = zlib.decompress(compressed_data)
+        except zlib.error:
+            original_data = compressed_data
 
-        # Tulis ke file
         with open(output_file, "wb") as f:
             f.write(original_data)
 
